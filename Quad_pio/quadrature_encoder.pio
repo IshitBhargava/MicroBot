@@ -1,0 +1,40 @@
+.program quadrature_encoder
+.origin 0
+
+; 16-entry jump table indexed by (old_AB << 2 | new_AB)
+    jmp update      ; 00 -> 00
+    jmp decrement   ; 00 -> 01
+    jmp increment   ; 00 -> 10
+    jmp update      ; 00 -> 11
+    jmp increment   ; 01 -> 00
+    jmp update      ; 01 -> 01
+    jmp update      ; 01 -> 10
+    jmp decrement   ; 01 -> 11
+    jmp decrement   ; 10 -> 00
+    jmp update      ; 10 -> 01
+    jmp update      ; 10 -> 10
+    jmp increment   ; 10 -> 11
+    jmp update      ; 11 -> 00
+    jmp increment   ; 11 -> 01
+    jmp decrement   ; 11 -> 10
+    jmp update      ; 11 -> 11
+
+increment:
+    mov y, ~y
+    jmp y--, inc_cont
+inc_cont:
+    mov y, ~y
+    jmp update
+
+decrement:
+    jmp y--, update ; target must be the next instruction
+
+update:
+    mov isr, y
+    push noblock
+
+sample_pins:
+    out isr, 2      ; previous state -> ISR[1:0]
+    in pins, 2      ; shift in new state -> ISR[3:0] = old<<2 | new
+    mov osr, isr    ; save for next iteration
+    mov pc, isr     ; jump into table
