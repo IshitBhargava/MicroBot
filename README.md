@@ -15,4 +15,4 @@ Aims to solve a 10ft x 10ft maze with 22cm wall separation (gives around 13 cell
 </ul>
 
 # chassis
-fully 3D printed and designed in Fusion (formerly Fusion 360)
+fully 3D printed and designed in Fusion (formerly Fusion 360). Refer to <a href="/MicroBot/">this directory</a> for the files.
