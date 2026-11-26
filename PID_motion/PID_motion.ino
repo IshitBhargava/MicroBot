@@ -295,7 +295,7 @@ static const uint8_t BMP_ADDR = 0x77;
 
 static const float DECLINATION_DEG = 1.0f;  // magnetic declination, Faridabad ~ +1 deg E
 static const float BETA_START = 1.5f;       // Madgwick gain during initial convergence
-static const float BETA_RUN   = 0.05f;      // Madgwick gain in steady state
+static const float BETA_RUN   = 0.005f;      // Madgwick gain in steady state
 static const uint32_t CONVERGE_MS = 2500;
 static const float G0 = 9.80665f;
 static const uint8_t BMP_OSS = 3;
